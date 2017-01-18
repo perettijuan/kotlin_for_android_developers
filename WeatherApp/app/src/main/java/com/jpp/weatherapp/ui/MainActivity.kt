@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.jpp.weatherapp.R
-import com.jpp.weatherapp.api.Request
+import com.jpp.weatherapp.api.ForecastRequest
 import org.jetbrains.anko.async
 import org.jetbrains.anko.find
 import org.jetbrains.anko.longToast
@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
 
 
         async() {
-            Request().run()
-            uiThread { longToast("Request Performed") }
+           // ForecastRequest().run()
+            uiThread { longToast("ForecastRequest Performed") }
         }
     }
 }
