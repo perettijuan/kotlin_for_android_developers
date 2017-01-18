@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 
         async() {
-           // ForecastRequest().run()
+            ForecastRequest("94043").execute()
             uiThread { longToast("ForecastRequest Performed") }
         }
     }

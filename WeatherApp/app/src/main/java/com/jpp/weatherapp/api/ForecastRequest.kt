@@ -1,13 +1,12 @@
 package com.jpp.weatherapp.api
 
-import android.util.Log
+import com.google.gson.Gson
 import com.jpp.weatherapp.data.ForecastResult
 import java.net.URL
 
 /**
- * Created by jpperetti on 18/1/17.
+ * Performs a request to the server to retrieve the forecast for an specified location.
  */
-
 class ForecastRequest(val zipCode: String) {
 
     // Kotlin does not allow static members declaration. Companion objects are shared among all instances
@@ -18,9 +17,8 @@ class ForecastRequest(val zipCode: String) {
         private val COMPLETE_URL = "$URL&APPID=$APP_ID"
     }
 
-    fun execute() {
-        Log.d("URl:", COMPLETE_URL)
+    fun execute(): ForecastResult {
         val forecastJsonStr = URL(COMPLETE_URL + zipCode).readText()
-
+        return Gson().fromJson(forecastJsonStr, ForecastResult::class.java)
     }
 }
