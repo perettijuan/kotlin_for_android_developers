@@ -1,4 +1,4 @@
-package com.jpp.weatherapp.data
+package com.jpp.weatherapp.data.server
 
 /**
  * Data classes for the API responses.

@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.jpp.weatherapp.R
-import com.jpp.weatherapp.api.ForecastRequest
+import com.jpp.weatherapp.data.server.ForecastRequest
 import org.jetbrains.anko.async
 import org.jetbrains.anko.find
 import org.jetbrains.anko.longToast
