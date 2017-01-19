@@ -3,6 +3,7 @@ package com.jpp.weatherapp.ui
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.TextView
+import com.jpp.weatherapp.domain.model.ForecastList
 
 /**
  * Class that extends RecyclerView.Adapter and provides functionallity to show
@@ -12,7 +13,7 @@ import android.widget.TextView
  *
  * Created by jpperetti on 13/1/17.
  */
-class ForecastListAdapter(val items: List<String>) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
+class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
 
 
     /**
@@ -30,7 +31,9 @@ class ForecastListAdapter(val items: List<String>) : RecyclerView.Adapter<Foreca
      * so I'm using !! again.
      */
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder!!.textView.text = items[position]
+        with(weekForecast.dailyForecast[position]) {
+            holder!!.textView.text = "$date - $description - $high/$low"
+        }
     }
 
 
@@ -38,7 +41,7 @@ class ForecastListAdapter(val items: List<String>) : RecyclerView.Adapter<Foreca
      * Overrides the function getItemCount. Note that I'm not using the brackets here, since
      * Kotlin allows the no-brackets syntax if the function can be calculated in a single line.
      */
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = weekForecast.dailyForecast.size
 
     /**
      * Inner class definition. Note that it extends RecyclerView.ViewHolder and, since this base class

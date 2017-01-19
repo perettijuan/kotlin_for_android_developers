@@ -1,14 +1,14 @@
 package com.jpp.weatherapp.data.server
 
 import com.jpp.weatherapp.domain.model.ForecastList
-import com.jpp.weatherapp.domain.model.Forecast as ModelForecast
 import java.text.DateFormat
 import java.util.*
+import com.jpp.weatherapp.domain.model.Forecast as ModelForecast
 
 /**
  * Mapper class that maps data layer classes to domain layer classes.
  */
-public class ForecastDataMapper {
+class ForecastDataMapper {
 
 
     /**
