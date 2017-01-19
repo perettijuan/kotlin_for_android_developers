@@ -31,7 +31,8 @@ class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter
      * so I'm using !! again.
      */
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        with(weekForecast.dailyForecast[position]) {
+        // Here, I'm using the overloaded operator get, that retrieves the list of Forecast
+        with(weekForecast[position]) {
             holder!!.textView.text = "$date - $description - $high/$low"
         }
     }
@@ -41,7 +42,7 @@ class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter
      * Overrides the function getItemCount. Note that I'm not using the brackets here, since
      * Kotlin allows the no-brackets syntax if the function can be calculated in a single line.
      */
-    override fun getItemCount(): Int = weekForecast.dailyForecast.size
+    override fun getItemCount(): Int = weekForecast.size()
 
     /**
      * Inner class definition. Note that it extends RecyclerView.ViewHolder and, since this base class
