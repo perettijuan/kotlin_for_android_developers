@@ -1,9 +1,17 @@
 package com.jpp.weatherapp.ui
 
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.jpp.weatherapp.R
+import com.jpp.weatherapp.domain.model.Forecast
 import com.jpp.weatherapp.domain.model.ForecastList
+import com.jpp.weatherapp.ui.utils.ctx
+import com.squareup.picasso.Picasso
+import org.jetbrains.anko.find
 
 /**
  * Class that extends RecyclerView.Adapter and provides functionallity to show
@@ -13,7 +21,7 @@ import com.jpp.weatherapp.domain.model.ForecastList
  *
  * Created by jpperetti on 13/1/17.
  */
-class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
+class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: OnItemClickListener) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
 
 
     /**
@@ -22,7 +30,8 @@ class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter
      * method's definition (!!).
      */
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        return ViewHolder(TextView(parent!!.context))
+        val view = LayoutInflater.from(parent!!.ctx).inflate(R.layout.item_forecast, parent, false)
+        return ViewHolder(view, itemClick)
     }
 
 
@@ -31,10 +40,7 @@ class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter
      * so I'm using !! again.
      */
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        // Here, I'm using the overloaded operator get, that retrieves the list of Forecast
-        with(weekForecast[position]) {
-            holder!!.textView.text = "$date - $description - $high/$low"
-        }
+       holder!!.bindForecast(weekForecast[position])
     }
 
 
@@ -49,6 +55,35 @@ class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter
      * declare a single argument constructor, I'm indicating that textView (the parameter
      * in the constructor of this inner class) is the parameter passed to that constructor.
      */
-    class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class ViewHolder(val view: View, val itemClick: OnItemClickListener ) : RecyclerView.ViewHolder(view) {
+
+        private val iconView: ImageView
+        private val dateView: TextView
+        private val descriptionView: TextView
+        private val maxTemperatureView: TextView
+        private val minTemperatureView: TextView
+
+        init {
+            iconView = view.find(R.id.icon)
+            dateView = view.find(R.id.date)
+            descriptionView = view.find(R.id.description)
+            maxTemperatureView = view.find(R.id.maxTemperature)
+            minTemperatureView = view.find(R.id.minTemperature)
+        }
+
+        fun bindForecast(forecast: Forecast) {
+            with(forecast) {
+                Picasso.with(itemView.ctx).load(iconUrl).into(iconView)
+                dateView.text = date
+                descriptionView.text = description
+                maxTemperatureView.text = "${high.toString()}"
+                minTemperatureView.text = "${low.toString()}"
+
+                // assign the item click listener -> operator overload invoke allows me to just call itemClick()
+                itemView.setOnClickListener { itemClick(this) }
+            }
+        }
+
+    }
 
 }
