@@ -7,7 +7,7 @@ import com.jpp.weatherapp.domain.model.ForecastList
 /**
  * Command implementation for requesting the forecast for an specific zipCode.
  */
-class RequestForecastCommand(val zipCode: String) : Command<ForecastList> {
+class RequestForecastCommand(private val zipCode: String) : Command<ForecastList> {
 
 
     @Override
