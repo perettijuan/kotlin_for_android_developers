@@ -17,11 +17,12 @@ import org.jetbrains.anko.find
  * Class that extends RecyclerView.Adapter and provides functionallity to show
  * the list of weather conditions.
  *
- * It receives a List of Strings as constructor parameters.
+ * It receives a ForecastList that contains the model to show
+ * and a function as parameter that serves as click listener
  *
  * Created by jpperetti on 13/1/17.
  */
-class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: OnItemClickListener) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
+class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: (Forecast) -> Unit) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
 
 
     /**
@@ -55,7 +56,7 @@ class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: OnItemC
      * declare a single argument constructor, I'm indicating that textView (the parameter
      * in the constructor of this inner class) is the parameter passed to that constructor.
      */
-    class ViewHolder(val view: View, val itemClick: OnItemClickListener ) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(val view: View, val itemClick: (Forecast) -> Unit ) : RecyclerView.ViewHolder(view) {
 
         private val iconView: ImageView
         private val dateView: TextView
@@ -76,8 +77,8 @@ class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: OnItemC
                 Picasso.with(itemView.ctx).load(iconUrl).into(iconView)
                 dateView.text = date
                 descriptionView.text = description
-                maxTemperatureView.text = "${high.toString()}"
-                minTemperatureView.text = "${low.toString()}"
+                maxTemperatureView.text = "${high}"
+                minTemperatureView.text = "${low}"
 
                 // assign the item click listener -> operator overload invoke allows me to just call itemClick()
                 itemView.setOnClickListener { itemClick(this) }
