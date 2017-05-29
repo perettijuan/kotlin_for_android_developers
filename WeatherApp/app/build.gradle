@@ -27,4 +27,6 @@ dependencies {
     compile "org.jetbrains.anko:anko-commons:$anko_version"
     compile "com.android.support:recyclerview-v7:$support_version"
 
+    compile "com.google.code.gson:gson:2.8.0"
+
 }
