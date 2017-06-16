@@ -24,6 +24,7 @@
       <meta-data android:name="android.support.PARENT_ACTIVITY"
         android:value="com.jpp.kotlin.weatherapp.ui.activities.MainActivity"/>
     </activity>
+    <activity android:name=".ui.activities.SettingsActivity"/>
   </application>
 
 </manifest>
